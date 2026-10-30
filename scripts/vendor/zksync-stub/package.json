@@ -1,0 +1,6 @@
+{
+  "name": "@zksync/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Install stub. CoinLotto does not compile zkSync sources; @chainlink/contracts@1.5.0 lists this package as a git dependency."
+}
