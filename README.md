@@ -1,8 +1,8 @@
 # CoinLotto protocol
 
-CoinLotto is an on-chain lottery protocol. Players buy tickets in user, regular, and super lotteries. Draws use Chainlink VRF. The CLT token is a LayerZero OFT, and CLT rewards are paid from a reward pool.
+CoinLotto is an on-chain lottery protocol. Players buy tickets in user, protocol(regular), and super lotteries. Draws use Chainlink VRF. The CLT token is a LayerZero OFT, and CLT rewards are paid from a reward pool.
 
-This repository contains the production Solidity sources, Hardhat tests for every event those contracts emit, and deployment scripts. It does not contain the off-chain services or the deployment pipeline used to publish the live contracts.
+This repository contains the production Solidity sources, Hardhat tests for every event those contracts emit, deployment scripts, and the CertiK security assessment. It does not contain the off-chain services or the deployment pipeline used to publish the live contracts.
 
 ## Layout
 
@@ -13,6 +13,7 @@ This repository contains the production Solidity sources, Hardhat tests for ever
 | `scripts/local/` | Constructor-only stand-ins used by a local `deployAll.ts` run |
 | `test/` | Event tests |
 | `test/mocks/` | Test-only mocks. Deploy scripts do not import them |
+| `audit/` | CertiK security assessment, final report dated November 19, 2026 |
 
 `LotteryTickets` is inherited by the lottery managers and is not deployed on its own. `LotteryWinnerReader` is deployed and declares no events.
 
@@ -161,7 +162,18 @@ Deployed at 2026-10-27T08:19:52.632Z.
 
 ## Security audit
 
-A CertiK review of these contracts is the intended audit. The final report is not linked here. This repository does not claim that the report has been published.
+CertiK assessed these contracts on November 18, 2026 and published the final report on November 19, 2026: [`audit/CertiK-REP-CoinLotto---Audit__final-20261119T023121Z.pdf`](audit/CertiK-REP-CoinLotto---Audit__final-20261119T023121Z.pdf).
+
+The review covered the Solidity contracts for Ethereum, Base, and BNB Chain, by manual review and static analysis. It lists 34 findings.
+
+| Severity | Count | Status in the final report |
+|---|---|---|
+| Critical | 0 | None |
+| Centralization | 4 | 2 mitigated by a 2-of-2 multisig, 1 by a 2-of-2 multisig and a 72-hour timelock, 1 acknowledged |
+| High | 4 | Resolved |
+| Medium | 19 | Resolved |
+| Low | 4 | Resolved |
+| Informational | 3 | Acknowledged |
 
 ## Compiler
 
